@@ -20,7 +20,7 @@ exports.addUser = async (req, res) => {
 
 
 exports.authenticateUser = async (req, res) => {
-    const { email, password } = req.body; // Ensure 'password' is correctly named and used
+    const { email, Password } = req.body; // Ensure 'password' is correctly named and used
     try {
         // Find the user by email
         const user = await UserData.findOne({ email });
@@ -28,11 +28,8 @@ exports.authenticateUser = async (req, res) => {
             return res.status(404).json({ message: 'User not found' });
         }
 
-        console.log("USER PWD : " + password);
-        console.log("DB PWD : " + user.Password);
-
         // Compare the provided password with the stored password
-        const isMatch = (password === user.Password);
+        const isMatch = (Password === user.Password);
         if (!isMatch) {
             return res.status(401).json({ message: 'Invalid credentials' });
         }

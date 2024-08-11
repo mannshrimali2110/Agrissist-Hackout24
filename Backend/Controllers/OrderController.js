@@ -2,14 +2,14 @@ const OrderData = require('../Models/OrderModel'); // Adjust the path to your Or
 
 // Function to insert an order
 exports.addOrder = async (req, res) => {
-    const { BuyerID, SellerID, OrderID, TotalPrice } = req.body;
+    const { BuyerID, SellerID, ProductID,TotalPrice } = req.body;
 
     try {
         // Create a new order instance with the provided data
         const newOrder = new OrderData({
             BuyerID,
             SellerID,
-            OrderID,
+            ProductID,
             TotalPrice,
             // OrderStatus and OrderDate will automatically be set to their default values
         });
@@ -26,9 +26,9 @@ exports.addOrder = async (req, res) => {
 };
 
 exports.getOrderByID = async (req, res) => {
-    const { OwnerID } = req.body;
+    const { BuyerID } = req.body;
     try {
-        const Order = await OrderData.findOne({ "BuyerID": OwnerID });
+        const Order = await OrderData.findOne({ "BuyerID": BuyerID });
         if (!Order) {
             return res.status(404).json({ message: 'Order not found' });
         }
